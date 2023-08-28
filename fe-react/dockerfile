@@ -1,0 +1,35 @@
+# Use a lightweight Node.js base image for building
+FROM node:14-alpine as builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the frontend files to the working directory
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Build the production-ready React app
+RUN npm run build
+
+# Use a minimal Node.js base image for serving the application
+FROM node:14-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy only the production build from the previous stage
+COPY --from=builder /app/build ./build
+
+# Install a lightweight web server for serving the frontend (e.g., 'serve')
+RUN npm install -g serve
+
+# Expose the port the frontend will be served on (change the port if needed)
+EXPOSE 3000
+
+# Serve the production build using 'serve'
+CMD ["serve", "-s", "build"]
+
+
+

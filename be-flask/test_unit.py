@@ -13,7 +13,7 @@ class TestApp(unittest.TestCase):
     def test_home_route(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Your IP address is:', response.data)
+        self.assertIn(b'"message":"Success"', response.data)
 
 
 if __name__ == '__main__':
