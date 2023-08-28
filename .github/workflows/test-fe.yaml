@@ -9,22 +9,19 @@ on:
   workflow_dispatch:  
 
 jobs:
-  build:
+  deployment:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: flask-pytorch-backend-master/frontend 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14 
-
-      - name: Install dependencies
-        # working-directory: bigid/fe-react  # Set the working directory
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install deps
         run: npm install
-
-      - name: Run tests
-        # working-directory: bigid/fe-react  # Set the working directory
-        run: npm test
+      - name: Test app
+        run: npm run test
+      - name: Lint code
+        run: npm run lint
+      # - name: Build App
+      #   run: npm run build
