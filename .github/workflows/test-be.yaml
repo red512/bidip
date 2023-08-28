@@ -40,3 +40,14 @@ jobs:
       - name: Stop Server
         run: |
           pkill -f app.py  # Stop the server gracefully
+
+      - name: Notify on success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Workflow succeeded for ${{ github.repository }} :rocket:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Workflow failed for ${{ github.repository }} :x:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
