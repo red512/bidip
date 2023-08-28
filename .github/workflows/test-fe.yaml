@@ -14,9 +14,13 @@ jobs:
     defaults:
       run:
         working-directory: bigid/fe-react
+      
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
+      - name: check directory
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The tests are succeeded for ${{ github.repository }} :rocket:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Install deps
         run: npm install
       - name: Test app
