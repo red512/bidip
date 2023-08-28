@@ -35,8 +35,11 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         continue-on-error: true
-        finally:
-          - run: ./.github/scripts/send-slack-message.sh "Integration tests finished: ${{ job.status }}" $SLACK_WEBHOOK_URL
+
+      - name: Send Integration Tests Slack Message
+        if: ${{ always() }}
+        run: |
+          ./.github/scripts/send-slack-message.sh "Integration tests finished: ${{ job.status }}" $SLACK_WEBHOOK_URL
 
       - name: Run unit tests
         run: |
@@ -44,8 +47,11 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         continue-on-error: true
-        finally:
-          - run: ./.github/scripts/send-slack-message.sh "Unit tests finished: ${{ job.status }}" $SLACK_WEBHOOK_URL
+
+      - name: Send Unit Tests Slack Message
+        if: ${{ always() }}
+        run: |
+          ./.github/scripts/send-slack-message.sh "Unit tests finished: ${{ job.status }}" $SLACK_WEBHOOK_URL
 
       - name: Stop Server
         run: |
