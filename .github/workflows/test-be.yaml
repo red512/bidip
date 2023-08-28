@@ -32,29 +32,22 @@ jobs:
       - name: Run integration tests
         run: |
           python be-flask/test_integration.py
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Set Slack webhook URL as an environment variable
-        if: ${{ success() }}  # Only run if previous step succeeded
 
       - name: Run unit tests
         run: |
           python be-flask/test_unit.py
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Set Slack webhook URL as an environment variable
-        if: ${{ success() }}  # Only run if previous step succeeded
 
       - name: Stop Server
         run: |
           pkill -f app.py  # Stop the server gracefully
 
-      - name: Notify on status
-        if: always()  # Notify on both success and failure
+      - name: Notify on success
+        if: success()
         run: |
-          if [[ ${{ success() }} == 'true' ]]; then
-            status_msg="succeeded"
-            emoji=":white_check_mark:"
-          else
-            status_msg="failed"
-            emoji=":x:"
-          fi
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Workflow $status_msg for ${{ github.repository }} $emoji\"}" $SLACK_WEBHOOK_URL
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The tests are succeeded for ${{ github.repository }} :rocket:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The tests are failed for ${{ github.repository }} :x:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
