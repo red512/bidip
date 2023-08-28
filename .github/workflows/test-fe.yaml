@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'bigid/fe-react/**'
-  workflow_dispatch:  # This event allows manual triggering
+  workflow_dispatch:  
 
 jobs:
   build:
@@ -19,10 +19,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14 # Change this to your desired Node.js version
+          node-version: 14 
 
       - name: Install dependencies
+        working-directory: bigid/fe-react  # Set the working directory
         run: npm install
 
       - name: Run tests
+        working-directory: bigid/fe-react  # Set the working directory
         run: npm test
