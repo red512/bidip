@@ -21,6 +21,7 @@ jobs:
       - name: check directory
         run: |
           pwd
+          ls -la
       - name: Install deps
         run: npm install
       - name: Test app
