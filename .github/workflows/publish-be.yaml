@@ -1,20 +1,52 @@
-name: Publish be image to Docker Hub
-on:
-  [workflow_dispatch]
-jobs:
-  publish_image:
-    runs-on: ubuntu-latest 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: build 
-        run: |
-          docker build be-flask -t projectred521/flask-ip:latest 
-      - name: publish 
-        run: |
-          docker login -u projectred521 -p ${{ secrets.DOCKER_HUB_TOKEN }}
-          docker push projectred521/flask-ip:latest
+name: CI Tests be
 
-      - name: Clean up Docker images
+on:
+  push:
+    paths:
+      - 'bigid/be-flask/**'
+  workflow_dispatch:  # This event allows manual triggering
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
         run: |
-          docker image prune -f
+          python -m pip install --upgrade pip
+          pip install -r be-flask/requirements.txt
+
+      - name: Start Server
+        run: |
+          python be-flask/app.py &  # Start the server in the background
+          sleep 5  # Give the server some time to start (adjust as needed)
+
+      - name: Run integration tests
+        run: |
+          python be-flask/test_integration.py
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        continue-on-error: true
+        finally:
+          - run: ./.github/scripts/send-slack-message.sh "Integration tests finished: ${{ job.status }}" $SLACK_WEBHOOK_URL
+
+      - name: Run unit tests
+        run: |
+          python be-flask/test_unit.py
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        continue-on-error: true
+        finally:
+          - run: ./.github/scripts/send-slack-message.sh "Unit tests finished: ${{ job.status }}" $SLACK_WEBHOOK_URL
+
+      - name: Stop Server
+        run: |
+          pkill -f app.py  # Stop the server gracefully
