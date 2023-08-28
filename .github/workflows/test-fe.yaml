@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'bigid/fe-react/**'
+  workflow_dispatch:  # This event allows manual triggering
 
 jobs:
   build:
