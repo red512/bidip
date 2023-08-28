@@ -1,3 +1,5 @@
 Flask==2.0.1
-Flask-Cors>=3.0  # Add this line for CORS support
-requests==2.26.0  # Required for integration testing
+Flask-Cors>=3.0  
+requests==2.26.0  
+unittest2==1.1.0  # Add this line for unit testing
+
