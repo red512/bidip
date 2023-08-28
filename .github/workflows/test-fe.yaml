@@ -5,15 +5,15 @@ on:
     branches:
       - main
     paths:
-      - 'bigid/fe-react/**'
+      - 'fe-react/**'
   workflow_dispatch:  
 
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: bigid/fe-react
+    defaults:
+      run:
+        working-directory: fe-react
       
     steps:
       - name: Get repository code

@@ -3,7 +3,7 @@ name: CI Tests be
 on:
   push:
     paths:
-      - 'bigid/be-flask/**'
+      - 'be-flask/**'
   workflow_dispatch:  # This event allows manual triggering
 
 jobs:
