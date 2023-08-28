@@ -29,9 +29,9 @@ jobs:
           python be-flask/app.py &  # Start the server in the background
           sleep 5  # Give the server some time to start (adjust as needed)
 
-      # - name: Run integration tests
-      #   run: |
-      #     python be-flask/test_integration.py
+      - name: Run integration tests
+        run: |
+          python be-flask/test_integration.py
 
       # - name: Run unit tests
       #   run: |
