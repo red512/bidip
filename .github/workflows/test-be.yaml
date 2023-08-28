@@ -33,10 +33,10 @@ jobs:
         run: |
           python be-flask/test_integration.py
 
-      # - name: Run unit tests
-      #   run: |
-      #     python be-flask/test_unit.py
+      - name: Run unit tests
+        run: |
+          python be-flask/test_unit.py
 
-      # - name: Stop Server
-      #   run: |
-      #     pkill -f app.py  # Stop the server gracefully
+      - name: Stop Server
+        run: |
+          pkill -f app.py  # Stop the server gracefully
