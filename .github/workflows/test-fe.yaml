@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: flask-pytorch-backend-master/frontend 
+        working-directory: bigid/fe-react
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
