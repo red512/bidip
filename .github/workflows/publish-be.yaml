@@ -2,37 +2,37 @@ name: Publish be image to Docker Hub
 on:
   [workflow_dispatch]
 jobs:
-  update:
-    runs-on: ubuntu-latest
+  publish_image:
+    runs-on: ubuntu-latest 
     defaults:
       run:
         working-directory: be-flask
+
     steps:
-    - uses: actions/checkout@v3
-    - id: pre-step
-      shell: bash
-      run: echo "release-version=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: build 
+        run: |
+          docker build . -t projectred521/flask-ip:latest 
+          
+      - id: get-version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/}"
+        
+      - name: Publish to Docker Hub
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: my-dockerhub-username/my-dockerhub-repo
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          tags: "latest,${{ steps.get-version.outputs.version }}"
+          
+      - name: Notify on success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The BE publishing is succeeded for ${{ github.repository }} :rocket:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
-    - name: print the version
-      run: |
-        echo ${{ steps.pre-step.outputs.release-version }}
-
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
-      with:
-        name: projectred521/flask-ip
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_TOKEN }}
-        tag_semver: true
-        # tags: "latest, ${{ steps.pre-step.outputs.release-version }}"
-
-    - name: Notify on success
-      if: success()
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"The BE publishing is succeeded for ${{ github.repository }} :rocket:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
-
-    - name: Notify on failure
-      if: failure()
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"The BE publishing is failed for ${{ github.repository }} :x:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
-  
+      - name: Notify on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The BE publishing is failed for ${{ github.repository }} :x:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+    
