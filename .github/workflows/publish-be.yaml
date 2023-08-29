@@ -4,6 +4,9 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: be-flask
     steps:
     - uses: actions/checkout@v3
     - id: pre-step
