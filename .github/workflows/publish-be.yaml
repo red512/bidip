@@ -18,7 +18,7 @@ jobs:
         name: projectred521/flask-ip
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_TOKEN }}
-        tags: "latest,${{ steps.pre-step.outputs.release-version }}"
+        tags: "latest, ${{ steps.pre-step.outputs.release-version }}"
 
     - name: Notify on success
       if: success()
