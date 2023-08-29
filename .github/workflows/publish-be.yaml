@@ -15,12 +15,12 @@ jobs:
         run: |
           docker build . -t projectred521/flask-ip:latest 
 
-      - name: Get Version from Tag
-        id: version
-        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/}"
+      - name: Get Last Git Tag
+        id: last_tag
+        run: echo "::set-output name=tag::$(git describe --abbrev=0 --tags)"
 
-      - name: Print Version
-        run: echo "Version ${{ steps.version.outputs.version }}" 
+      - name: Print Last Git Tag
+        run: echo "Last Git Tag ${{ steps.last_tag.outputs.tag }}"
           
           
       - name: publish 
