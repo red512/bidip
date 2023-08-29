@@ -21,11 +21,10 @@ jobs:
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          name: my-dockerhub-username/my-dockerhub-repo
+          name: projectred521/flask-ip
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           tags: "latest,${{ steps.get-version.outputs.version }}"
-          
       - name: Notify on success
         if: success()
         run: |
