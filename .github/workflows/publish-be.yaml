@@ -12,7 +12,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        name: myDocker/repository
+        name: projectred521/flask-ip:latest
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_TOKEN }}
         tags: "latest,${{ steps.pre-step.outputs.release-version }}"
