@@ -10,6 +10,10 @@ env:
 jobs:
   publish_image:
     runs-on: ubuntu-latest 
+    defaults:
+      run:
+        working-directory: fe-react
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
