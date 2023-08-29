@@ -1,4 +1,4 @@
-name: Publish fe image to Docker Hub
+name: Publish FE image to Docker Hub
 
 on:
   workflow_dispatch:

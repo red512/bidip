@@ -1,4 +1,4 @@
-name: Publish be image to Docker Hub
+name: Publish BE - TEST (not in use)
 on:
   [workflow_dispatch]
 jobs:
