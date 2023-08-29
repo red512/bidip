@@ -25,6 +25,8 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           tags: "latest,${{ steps.get-version.outputs.version }}"
+          tag_names: true
+
       - name: Notify on success
         if: success()
         run: |
