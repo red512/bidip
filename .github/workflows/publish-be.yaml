@@ -14,12 +14,17 @@ jobs:
       - name: build 
         run: |
           docker build . -t projectred521/flask-ip:latest 
+
+      - name: Get Latest Release
+        id: latest_release
+        run: |
           release_info=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest)
           echo "::set-output name=release::$release_info"
 
       - name: Print Latest Release
         run: |
-          echo "${{ steps.latest_release.outputs.release }}"
+          echo "${{ steps.latest_release.outputs.release }}"    
+          
           
       - name: publish 
         run: |
