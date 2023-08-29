@@ -23,6 +23,15 @@ jobs:
           docker build . -t $DOCKER_HUB_IMAGE:$IMAGE_TAG
         continue-on-error: true
 
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@v5
+        with:
+          name: myDocker/repository
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "latest,${{ steps.pre-step.outputs.release-version }}"
+
+
       - name: Publish Docker image
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}

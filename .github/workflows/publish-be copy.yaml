@@ -1,0 +1,36 @@
+name: Publish be image to Docker Hub
+on:
+  [workflow_dispatch]
+jobs:
+  publish_image:
+    runs-on: ubuntu-latest 
+    defaults:
+      run:
+        working-directory: be-flask
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: build 
+        run: |
+          docker build . -t projectred521/flask-ip:latest 
+          
+      - name: publish 
+        run: |
+          docker login -u projectred521 -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push projectred521/flask-ip:latest
+
+      - name: Clean up Docker images
+        run: |
+          docker image prune -f
+
+      - name: Notify on success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The BE publishing is succeeded for ${{ github.repository }} :rocket:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"The BE publishing is failed for ${{ github.repository }} :x:"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+    
