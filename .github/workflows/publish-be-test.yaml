@@ -21,13 +21,13 @@ jobs:
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          name: $DOCKER_HUB_IMAGE
+          name: projectred521/flask-ip
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           workdir: be-flask
           tag_names: true
 
-          tags: "latest, $DOCKER_HUB_IMAGE, ${{github.ref_name}}"
+          tags: "latest, $IMAGE_TAG, ${{github.ref_name}}"
           # tag_names: true
   
       - name: Notify on success
