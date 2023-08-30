@@ -1,6 +1,6 @@
 # DOCKER_HUB_IMAGE: projectred521/react-fe
 
-name: Publish BE
+name: Publish FE
 
 on:
   workflow_dispatch:
