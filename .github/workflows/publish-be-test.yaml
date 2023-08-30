@@ -23,7 +23,7 @@ jobs:
         run: |
           # mv Dockerfile ../
           # mv requirements.txt ../
-          echo release-version
+          echo $release-version
           
    
       - name: Publish to Docker Hub
