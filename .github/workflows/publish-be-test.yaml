@@ -22,8 +22,7 @@ jobs:
       - name: check files
         run: |
           ls -la
-         
-
+          
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
