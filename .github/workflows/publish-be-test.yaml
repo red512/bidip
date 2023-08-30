@@ -18,7 +18,12 @@ jobs:
       - id: pre-step
         shell: bash
         run: echo "release-version=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
-        
+
+      - name: check files
+        run: |
+          ls -la
+         
+
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
@@ -27,7 +32,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           tags: "latest,${{ steps.get-version.outputs.version }}"
           # tag_names: true
-
+  
       - name: Notify on success
         if: success()
         run: |
