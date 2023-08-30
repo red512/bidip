@@ -31,7 +31,7 @@ jobs:
           name: projectred521/flask-ip
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-          tags: "latest,${{ steps.get-version.outputs.version }}, ${{ github.ref }}"
+          tags: "latest, ${{ github.ref }}"
           # tag_names: true
         #       # Add this line to specify the Dockerfile name
         # env:
