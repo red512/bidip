@@ -22,6 +22,7 @@ jobs:
       - name: check files
         run: |
           mv Dockerfile ../
+          cd be-flask
    
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@v5
