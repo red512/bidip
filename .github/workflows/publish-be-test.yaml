@@ -21,9 +21,8 @@ jobs:
 
       - name: check files
         run: |
-          # mv Dockerfile ../
-          # mv requirements.txt ../
-          echo $release-version
+          mv Dockerfile ../
+          mv requirements.txt ../
           
    
       - name: Publish to Docker Hub
@@ -32,8 +31,7 @@ jobs:
           name: projectred521/flask-ip
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-          workdir: be-flask
-          tags: "latest,${{ steps.pre-step.outputs.release-version }}"
+          tags: "latest,${{ steps.get-version.outputs.version }}"
           tag_names: true
         #       # Add this line to specify the Dockerfile name
         # env:
