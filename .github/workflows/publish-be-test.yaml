@@ -27,7 +27,7 @@ jobs:
           workdir: be-flask
           tag_names: true
 
-          tags: "latest, $IMAGE_TAG, ${{github.ref_name}}"
+          tags: "latest, ${{github.ref_name}}"
           # tag_names: true
   
       - name: Notify on success
