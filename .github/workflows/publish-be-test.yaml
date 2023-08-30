@@ -32,6 +32,10 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           workdir: be-flask
+          context: be-flask
+          tags: "latest,${{ steps.pre-step.outputs.release-version }}, test"
+
+
           # tags: "latest, ${{ github.ref }}"
           tag_names: true
         #       # Add this line to specify the Dockerfile name
