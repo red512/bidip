@@ -3,13 +3,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: apps-staging
-  namespace: argocd
+  namespace: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/red512/bigip-gitops
+    repoURL: https://github.com/red512/bidip-gitops
     targetRevision: HEAD
     path: gitops/environments/staging/apps
   destination:
