@@ -15,9 +15,9 @@ jobs:
       #   run: |
       #     docker build . -t projectred521/flask-ip:latest 
           
-      - id: pre-step
-        shell: bash
-        run: echo "release-version=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
+      # - id: pre-step
+      #   shell: bash
+      #   run: echo "release-version=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
 
       # - name: check files
       #   run: |
@@ -33,7 +33,9 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           workdir: be-flask
           context: be-flask
-          tags: "latest,${{ steps.pre-step.outputs.release-version }}, test"
+          tag_names: true
+
+          # tags: "latest,${{ steps.pre-step.outputs.release-version }}, test"
 
 
           # tags: "latest, ${{ github.ref }}"
