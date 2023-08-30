@@ -11,9 +11,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: build 
-        run: |
-          docker build . -t projectred521/flask-ip:latest 
+      # - name: build 
+      #   run: |
+      #     docker build . -t projectred521/flask-ip:latest 
           
       - id: pre-step
         shell: bash
