@@ -15,8 +15,9 @@ jobs:
         run: |
           docker build . -t projectred521/flask-ip:latest 
           
-      - id: get-version
-        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/}"
+      - id: pre-step
+        shell: bash
+        run: echo "release-version=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
         
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@v5
@@ -24,8 +25,8 @@ jobs:
           name: projectred521/flask-ip
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-          # tags: "latest,${{ steps.get-version.outputs.version }}"
-          tag_names: true
+          tags: "latest,${{ steps.get-version.outputs.version }}"
+          # tag_names: true
 
       - name: Notify on success
         if: success()
