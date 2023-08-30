@@ -1,6 +1,15 @@
 name: Publish BE - TEST (not in use)
 on:
-  [workflow_dispatch]
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - 'master'
+  
 
 
 env:
