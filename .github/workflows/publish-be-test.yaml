@@ -32,10 +32,10 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
           tags: "latest,${{ steps.get-version.outputs.version }}"
-          # tag_names: true
-              # Add this line to specify the Dockerfile name
-        env:
-          INPUT_DOCKERFILE: Dockerfile
+          tag_names: true
+        #       # Add this line to specify the Dockerfile name
+        # env:
+        #   INPUT_DOCKERFILE: Dockerfile
   
       - name: Notify on success
         if: success()
