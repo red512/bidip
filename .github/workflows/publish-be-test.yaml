@@ -5,7 +5,7 @@ on:
 
 env:
   DOCKER_HUB_IMAGE: projectred521/flask-ip
-  IMAGE_TAG: v0.0.1
+  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   publish_image:
@@ -17,13 +17,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-            
-      - name: Get Tag
-        id: vars
-        run: echo "::set-output name=tag::$(git describe --abbrev=0)"
-
-      # - name: Build the Docker image
-      #   run: docker build . --file Dockerfile --tag my-image-name:${{ steps.vars.outputs.tag }}
 
       - name: Publish to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@v5
@@ -34,7 +27,7 @@ jobs:
           workdir: be-flask
           tag_names: true
 
-          tags: "latest, ${{github.ref_name}}, ${{ steps.vars.outputs.tag }}"
+          tags: "latest, ${{ github.sha }}, ${{github.ref_name}}"
           # tag_names: true
   
       - name: Notify on success
