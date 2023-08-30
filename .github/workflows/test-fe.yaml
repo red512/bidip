@@ -3,7 +3,7 @@ name: CI Tests fe
 on:
   push:
     branches:
-      - main
+      - 'main'
     paths:
       - 'fe-react/**'
   workflow_dispatch:  

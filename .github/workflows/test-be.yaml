@@ -2,9 +2,14 @@ name: CI Tests be
 
 on:
   push:
+    branches:
+      - 'main'
     paths:
       - 'be-flask/**'
   workflow_dispatch:  # This event allows manual triggering
+  pull_request:
+    branches:
+      - 'master'
 
 jobs:
   tests:
