@@ -19,10 +19,11 @@ jobs:
         shell: bash
         run: echo "release-version=$(echo ${GITHUB_REF:10})" >> $GITHUB_OUTPUT
 
-      # - name: check files
-      #   run: |
-      #     mv Dockerfile ../
-      #     mv requirements.txt ../
+      - name: check files
+        run: |
+          # mv Dockerfile ../
+          # mv requirements.txt ../
+          echo release-version
           
    
       - name: Publish to Docker Hub
