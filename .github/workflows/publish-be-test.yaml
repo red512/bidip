@@ -36,10 +36,11 @@ jobs:
           tag_names: true
 
           # tags: "latest,${{ steps.pre-step.outputs.release-version }}, test"
+          tags: "latest, test"
 
 
           # tags: "latest, ${{ github.ref }}"
-          tag_names: true
+          # tag_names: true
         #       # Add this line to specify the Dockerfile name
         # env:
         #   INPUT_DOCKERFILE: Dockerfile
