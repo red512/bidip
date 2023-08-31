@@ -9,9 +9,7 @@ on:
       - 'be-flask/**'
     tags:
       - 'v*'
-  pull_request:
-    branches:
-      - 'master'
+
 
 jobs:
   docker:
