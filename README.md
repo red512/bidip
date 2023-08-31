@@ -79,7 +79,6 @@ These GitHub Actions manage the publication of both frontend and backend compone
 - `Push`: Triggers when changes are pushed to the 'main' branch within the respective directories ('be-flask/' for backend and 'fe-react/' for frontend).
 - `Workflow Dispatch`: Allows manual triggering of the workflow.
 - `Tags`: Triggers on tag creation with a version pattern ('v\*').
-- `Pull Request`: Triggers on pull requests to the respective branches.
   The workflow includes steps for checking out the code, generating Docker metadata, logging in to DockerHub, building Docker images, and pushing them to the repository.
 
 For Docker image publishing, ensure you have DockerHub credentials set up as secrets in your repository.
