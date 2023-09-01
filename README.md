@@ -9,7 +9,7 @@ Before getting started, make sure you have the following prerequisites set up:
 2. **Helm**: Install Helm, a package manager for Kubernetes, to manage the deployment of Grafana Prometheus, ArgoCD, and Metrics server.
 
 3. **Terraform**: Install Terraform for provisioning and managing infrastructure.
-4. **Slack Webhook** Slack Webhook: Obtain a URL to send automated CI notifications to Slack.
+4. **Slack Webhook**: Obtain a URL to send automated CI notifications to Slack.
 
 ### Repository Structure
 
@@ -58,6 +58,10 @@ https://github.com/red512/bidip-gitops
 ### Notes about installation:
 
 > The installation of Prometheus stack, metrics server, and argocd are made from terraform code using helm provider.
+
+### Description of the deployed app
+
+> The provided Flask backend sets up a single route at the root URL, allowing clients to request their IP address. The backend utilizes CORS to enable cross-origin requests. The React frontend fetches data from this Flask API and displaying the received IP address
 
 ### CI Details
 
