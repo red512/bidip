@@ -48,13 +48,6 @@ module "eks" {
 
       instance_types = var.worker_group_instance_type
 
-      # taints = [{
-      #   key    = "market"
-      #   value  = "spot"
-      #   effect = "NO_SCHEDULE"
-      # }]
-
-      # instance_types = ["t3.small"]
       instance_types = var.worker_group_instance_type
 
       capacity_type = "SPOT"
